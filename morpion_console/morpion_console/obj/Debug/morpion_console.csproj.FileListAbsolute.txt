@@ -1,0 +1,6 @@
+U:\Espace privé\AP\Ap 2 Morpion\MorpionProject\morpion_console\morpion_console\bin\Debug\morpion_console.exe.config
+U:\Espace privé\AP\Ap 2 Morpion\MorpionProject\morpion_console\morpion_console\bin\Debug\morpion_console.exe
+U:\Espace privé\AP\Ap 2 Morpion\MorpionProject\morpion_console\morpion_console\bin\Debug\morpion_console.pdb
+U:\Espace privé\AP\Ap 2 Morpion\MorpionProject\morpion_console\morpion_console\obj\Debug\morpion_console.csprojResolveAssemblyReference.cache
+U:\Espace privé\AP\Ap 2 Morpion\MorpionProject\morpion_console\morpion_console\obj\Debug\morpion_console.exe
+U:\Espace privé\AP\Ap 2 Morpion\MorpionProject\morpion_console\morpion_console\obj\Debug\morpion_console.pdb
