@@ -16,7 +16,29 @@ namespace morpion_console
         // Fonction permettant l'affichage du Morpion
         public static void AfficherMorpion(int j, int k)
         {
-            // A compléter
+            for (j = 0; j < grille.GetLength(0); j++)	// parcour la première dimension de la grille
+            {
+                Console.Write("\n|===|===|===|\n");
+                Console.Write("|");
+                for (k = 0; k < grille.GetLength(1); k++)	// parcour la deuxième dimension de la grille
+                {
+                	if(grille[j,k] == 1)
+                	{
+                		Console.Write(" X ");
+                	}
+                	else if(grille[j,k] == 2)
+                	{
+                		Console.Write(" O ");
+                	}
+                	else
+                	{
+                		Console.Write("   ");
+                	}
+                    Console.Write("|");
+                }
+                
+            }
+            Console.Write("\n|===|===|===|\n");
         }
 
         // Fonction permettant de changer
@@ -29,8 +51,11 @@ namespace morpion_console
         {
         	if(0 <= j && j < 3 && 0 <= k && k < 3)
         	{
-        		grille[j,k] = joueur;
-        		return true;
+        		if(grille[j,k] ==10)
+        		{
+        			grille[j,k] = joueur;
+        			return true;
+        		}
         	}
             return false;
         }
@@ -39,9 +64,7 @@ namespace morpion_console
         // si un joueur à gagner
         public static bool Gagner(int l, int c, int joueur)
         {
-            // A compléter
-            if
-            return false;
+        	
         }
 
         // Programme principal
@@ -67,8 +90,8 @@ namespace morpion_console
             {
                 // A compléter
                 Console.Clear();
+                Console.WriteLine("Le joueur "+joueur+" doit jouer !");
                 AfficherMorpion(j,k);
-                Console.WriteLine("Le joueur "+joueur+" doit jouer");
                 
                 try
                 {
@@ -83,6 +106,7 @@ namespace morpion_console
 
                     // A compléter
                     bonnePosition = AJouer(l,c,joueur);
+                    gagner = Gagner(l,c,joueur);
 
                 }
                 catch (Exception e)
@@ -91,9 +115,8 @@ namespace morpion_console
                 }
 
                 // Changement de joueur
-                if (bonnePosition)
+                if(bonnePosition && !gagner)
                 {
-                	gagner = Gagner(l,c,joueur);
                 	essais += 1;
 	                if(joueur == 1)
 	                {
@@ -107,14 +130,22 @@ namespace morpion_console
                 else
                 {
                 	Console.WriteLine("Le placement est incorrecte!");
+                	Console.ReadKey(true);
                 }
                 // A compléter
-                Console.ReadKey(true);
 
             } // Fin TQ
 
             // Fin de la partie
             // A compléter
+            if(!gagner && essais == 9)
+            {
+            	Console.WriteLine("Match nul!!");
+            }
+            else
+            {
+            	Console.WriteLine("Le joueur {0} a gagné !", joueur);
+            }
             Console.ReadKey();
     }
   }
