@@ -9,17 +9,18 @@ using System;
 
 namespace morpion_console
 {
-    class Program
+	class Program
     {
         public static int[,] grille = new int[3, 3]; // matrice pour stocker les coups joués
 
         // Fonction permettant l'affichage du Morpion
         public static void AfficherMorpion(int j, int k)
         {
+        	Console.Write("\n  | 1 | 2 | 3 |");
             for (j = 0; j < grille.GetLength(0); j++)	// parcour la première dimension de la grille
             {
-                Console.Write("\n|===|===|===|\n");
-                Console.Write("|");
+                Console.Write("\n==|===|===|===|\n");
+                Console.Write((j+1)+" |");
                 for (k = 0; k < grille.GetLength(1); k++)	// parcour la deuxième dimension de la grille
                 {
                 	if(grille[j,k] == 1)
@@ -38,7 +39,7 @@ namespace morpion_console
                 }
                 
             }
-            Console.Write("\n|===|===|===|\n");
+            Console.Write("\n==|===|===|===|\n");
         }
 
         // Fonction permettant de changer
@@ -51,7 +52,7 @@ namespace morpion_console
         {
         	if(0 <= j && j < 3 && 0 <= k && k < 3)
         	{
-        		if(grille[j,k] ==10)
+        		if(grille[j,k] == 10)
         		{
         			grille[j,k] = joueur;
         			return true;
@@ -64,7 +65,19 @@ namespace morpion_console
         // si un joueur à gagner
         public static bool Gagner(int l, int c, int joueur)
         {
-        	
+        	if(grille[l,0] == grille[l,1] && grille[l,1] == grille[l,2] && grille[l,1] != 10)
+        	{
+        		return true;
+        	}
+        	if(grille[0,c] == grille[1,c] && grille[1,c] == grille[2,c] && grille[2,c] != 10)
+        	{
+        		return true;
+        	}
+        	if(((grille[0,0] == grille[1,1] && grille[1,1] == grille[2,2]) || (grille[2,0] == grille[1,1] && grille[1,1] == grille[0,2])) && grille[1,1] != 10)
+        	{
+        		return true;
+        	}
+            return false;
         }
 
         // Programme principal
@@ -98,10 +111,10 @@ namespace morpion_console
                     Console.WriteLine("Ligne   =    ");
                     Console.WriteLine("Colonne =    ");
                     // Peut changer en fonction de comment vous avez fait votre tableau.
-                    Console.SetCursorPosition(LigneDébut + 10, ColonneDébut + 9); // Permet de manipuler le curseur dans la fenêtre 
+                    Console.SetCursorPosition(LigneDébut + 10, ColonneDébut + 10); // Permet de manipuler le curseur dans la fenêtre 
                     l = int.Parse(Console.ReadLine()) - 1; 
                     // Peut changer en fonction de comment vous avez fait votre tableau.
-                    Console.SetCursorPosition(LigneDébut + 10, ColonneDébut + 10); // Permet de manipuler le curseur dans la fenêtre 
+                    Console.SetCursorPosition(LigneDébut + 10, ColonneDébut + 11); // Permet de manipuler le curseur dans la fenêtre 
                     c = int.Parse(Console.ReadLine()) - 1;
 
                     // A compléter
@@ -115,6 +128,10 @@ namespace morpion_console
                 }
 
                 // Changement de joueur
+                if(gagner)
+                {
+                	break;
+                }
                 if(bonnePosition && !gagner)
                 {
                 	essais += 1;
@@ -138,6 +155,8 @@ namespace morpion_console
 
             // Fin de la partie
             // A compléter
+            Console.Clear();
+            AfficherMorpion(j,k);
             if(!gagner && essais == 9)
             {
             	Console.WriteLine("Match nul!!");
