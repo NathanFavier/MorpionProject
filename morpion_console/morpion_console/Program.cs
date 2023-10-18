@@ -23,15 +23,15 @@ namespace morpion_console
                 Console.Write((j+1)+" |");
                 for (k = 0; k < grille.GetLength(1); k++)	// parcour la deuxième dimension de la grille
                 {
-                	if(grille[j,k] == 1)
+                	if(grille[j,k] == 1)	// si le joueur 1 à jouer ici
                 	{
                 		Console.Write(" X ");
                 	}
-                	else if(grille[j,k] == 2)
+                	else if(grille[j,k] == 2)	// si le joueur 2 à jouer ici
                 	{
                 		Console.Write(" O ");
                 	}
-                	else
+                	else	// si personne à jouer ici
                 	{
                 		Console.Write("   ");
                 	}
@@ -50,34 +50,34 @@ namespace morpion_console
         // n'est pas déjà jouée
         public static bool AJouer(int j, int k, int joueur)
         {
-        	if(0 <= j && j < 3 && 0 <= k && k < 3)
+        	if(0 <= j && j < 3 && 0 <= k && k < 3)	// si la ligne et la colonne sont dans la grille
         	{
-        		if(grille[j,k] == 10)
+        		if(grille[j,k] == 10)	// si personne à jouer ici
         		{
-        			grille[j,k] = joueur;
+        			grille[j,k] = joueur;	// le joueur à maintenant jouer ici
         			return true;
         		}
         	}
-            return false;
+            return false;	// pas dans le tableau ou quelqu'un à déjà joué ici
         }
 
         // Fonction permettant de vérifier
         // si un joueur à gagner
         public static bool Gagner(int l, int c, int joueur)
         {
-        	if(grille[l,0] == grille[l,1] && grille[l,1] == grille[l,2] && grille[l,1] != 10)
+        	if(grille[l,0] == grille[l,1] && grille[l,1] == grille[l,2] && grille[l,1] != 10)	// si la ligne où le joueur a joué est gagnante
         	{
         		return true;
         	}
-        	if(grille[0,c] == grille[1,c] && grille[1,c] == grille[2,c] && grille[2,c] != 10)
+        	if(grille[0,c] == grille[1,c] && grille[1,c] == grille[2,c] && grille[2,c] != 10)	// si la colonne où le joueur a joué est gagnante
         	{
         		return true;
         	}
-        	if(((grille[0,0] == grille[1,1] && grille[1,1] == grille[2,2]) || (grille[2,0] == grille[1,1] && grille[1,1] == grille[0,2])) && grille[1,1] != 10)
+        	if(((grille[0,0] == grille[1,1] && grille[1,1] == grille[2,2]) || (grille[2,0] == grille[1,1] && grille[1,1] == grille[0,2])) && grille[1,1] != 10)	// si une des diagonales est gagnante
         	{
         		return true;
         	}
-            return false;
+            return false;	// pas de gagnant
         }
 
         // Programme principal
@@ -101,10 +101,9 @@ namespace morpion_console
 			        grille[j,k] = 10;
             while(!gagner && essais != 9)
             {
-                // A compléter
-                Console.Clear();
+                Console.Clear();	// vide la console
                 Console.WriteLine("Le joueur "+joueur+" doit jouer !");
-                AfficherMorpion(j,k);
+                AfficherMorpion(j,k);	// affiche la grille de jeu
                 
                 try
                 {
@@ -117,9 +116,8 @@ namespace morpion_console
                     Console.SetCursorPosition(LigneDébut + 10, ColonneDébut + 11); // Permet de manipuler le curseur dans la fenêtre 
                     c = int.Parse(Console.ReadLine()) - 1;
 
-                    // A compléter
-                    bonnePosition = AJouer(l,c,joueur);
-                    gagner = Gagner(l,c,joueur);
+                    bonnePosition = AJouer(l,c,joueur);	// tente de rentrer le coup du joueur dans la grille et récupère si cela a eu lieu
+                    gagner = Gagner(l,c,joueur);	// regarde si le joueur à gagné
 
                 }
                 catch (Exception e)
@@ -128,12 +126,13 @@ namespace morpion_console
                 }
 
                 // Changement de joueur
-                if(gagner)
+                if(gagner)	// si le joueur a gagné
                 {
                 	break;
                 }
-                if(bonnePosition && !gagner)
+                if(bonnePosition && !gagner)	// si le joueur a bien joué mais n'a pas gagné
                 {
+                	// changement de joueur et augmente le nombre d'essai
                 	essais += 1;
 	                if(joueur == 1)
 	                {
@@ -144,24 +143,23 @@ namespace morpion_console
 	                	joueur = 1;
 	                }
                 }
-                else
+                else	// si le joueur a mal joueur -> on ne change pas de joueur ni augmente le nombre d'essai et on recommence le tour
                 {
                 	Console.WriteLine("Le placement est incorrecte!");
                 	Console.ReadKey(true);
                 }
-                // A compléter
-
             } // Fin TQ
 
             // Fin de la partie
-            // A compléter
+            // gère l'affichage de fin
             Console.Clear();
             AfficherMorpion(j,k);
-            if(!gagner && essais == 9)
+            
+            if(!gagner && essais == 9)	// si il y a match nul
             {
             	Console.WriteLine("Match nul!!");
             }
-            else
+            else	// sinon il y a un gagnant + affichage du gagnant
             {
             	Console.WriteLine("Le joueur {0} a gagné !", joueur);
             }
